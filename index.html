@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -392,4 +393,400 @@
     qs('#year').textContent = new Date().getFullYear();
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DineBite – Restaurant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff;--text:#1f2937;--muted:#6b7280;--brand:#dc2626;--brand-700:#b91c1c;--card:#f9fafb;--border:#e5e7eb;
+    }
+    :root.dark{
+      --bg:#0b0f14;--text:#f3f4f6;--muted:#9aa4b2;--brand:#f87171;--brand-700:#ef4444;--card:#0f1720;--border:#1f2937;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; background:var(--bg); color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Header */
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.7);backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid var(--border)}
+    :root.dark header{background:rgba(11,15,20,.6)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-700));display:grid;place-items:center;color:#fff;font-weight:800}
+    .nav-links{display:flex;gap:24px;align-items:center}
+    .nav-links a{opacity:.9}
+    .btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:12px;padding:12px 16px;background:var(--brand);color:white;font-weight:600;cursor:pointer;transition:.2s transform,.2s filter}
+    .btn:hover{transform:translateY(-1px);filter:saturate(115%)}
+    .btn.secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
+
+    /* Mobile menu */
+    .hamburger{display:none;flex-direction:column;gap:4px}
+    .hamburger span{width:22px;height:2px;background:var(--text)}
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .mobile-menu{display:none;position:fixed;inset:64px 0 0 0;background:var(--bg);border-top:1px solid var(--border);padding:16px}
+      .mobile-menu a{display:block;padding:14px 8px;border-bottom:1px dashed var(--border)}
+      .mobile-menu .mm-cta{display:flex;gap:10px;padding:12px 0}
+    }
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:60px 0}
+    .hero h1{font-size:clamp(28px,5vw,48px);line-height:1.1;margin:0 0 12px}
+    .hero p{color:var(--muted);margin:0 0 20px}
+    .hero .card{border:1px solid var(--border);border-radius:16px;background:var(--card);overflow:hidden}
+    .hero .photo{height:380px;background:url('images/resturant\ interior.png') center/cover}
+    .badges{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .badge{border:1px solid var(--border);border-radius:999px;padding:8px 12px;font-size:12px;color:var(--muted);background:var(--card)}
+
+    /* Section */
+    section{padding:60px 0;border-top:1px solid var(--border)}
+    section h2{font-size:32px;margin:0 0 6px}
+    section p.lead{color:var(--muted);margin:0 0 24px}
+
+    /* Menu grid */
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .filter{border:1px solid var(--border);background:transparent;padding:10px 14px;border-radius:999px;cursor:pointer}
+    .filter.active{background:var(--brand);border-color:var(--brand);color:white}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.grid{grid-template-columns:1fr}}
+
+    .card{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--card)}
+    .card img{height:180px;width:100%;object-fit:cover}
+    .card .content{padding:14px}
+    .price{font-weight:700}
+    .muted{color:var(--muted)}
+
+    /* About */
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
+    @media(max-width:900px){.two{grid-template-columns:1fr}}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    @media(max-width:900px){.gallery{grid-template-columns:repeat(2,1fr)}}
+    .gallery img{border-radius:12px;cursor:pointer}
+
+    /* Reservation */
+    form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    form input,form select,form textarea{padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text)}
+    form textarea{grid-column:1/-1;min-height:100px}
+    form .actions{grid-column:1/-1;display:flex;gap:10px;align-items:center}
+
+    /* Footer */
+    footer{padding:40px 0;border-top:1px solid var(--border);color:var(--muted)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal.open{display:flex}
+    .modal-card{max-width:560px;width:100%;background:var(--bg);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+    .modal-card img{height:240px;object-fit:cover}
+    .modal-card .content{padding:16px}
+
+    /* Toast */
+    .toast{position:fixed;bottom:20px;right:20px;background:var(--text);color:var(--bg);padding:12px 16px;border-radius:10px;opacity:0;transform:translateY(6px);transition:.25s}
+    .toast.show{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="DineBite home">
+        <div class="logo">DB</div>
+        <span>DineBite</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#reserve">Reservation</a>
+        <a href="#contact">Contact</a>
+        <button id="themeToggle" class="btn secondary" aria-pressed="false" title="Toggle dark mode">🌙</button>
+        <a href="#reserve" class="btn">Book a Table</a>
+      </nav>
+      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reserve">Reservation</a>
+      <a href="#contact">Contact</a>
+      <div class="mm-cta">
+        <button id="themeToggleM" class="btn secondary" style="width:50%">Theme</button>
+        <a href="#reserve" class="btn" style="width:50%">Book</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="home" class="container hero">
+    <div>
+      <h1>Fresh, Fire & Flavorful.</h1>
+      <p>Handcrafted dishes made with seasonal ingredients. Dine-in, takeaway, or book a cozy corner for your special moments.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="#menu">Explore Menu</a>
+        <a class="btn secondary" href="#reserve">Reserve Now</a>
+      </div>
+      <div class="badges">
+        <span class="badge">⭐ 4.8/5 • 2k+ reviews</span>
+        <span class="badge">🚚 Free delivery over $20</span>
+        <span class="badge">🌱 Vegan options</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="photo" role="img" aria-label="Restaurant interior"></div>
+    </div>
+  </main>
+
+  <!-- Menu -->
+  <section id="menu">
+    <div class="container">
+      <h2>Our Menu</h2>
+      <p class="lead">Choose from our chef-curated favorites. Click a dish to see details.</p>
+      <div class="filters" role="tablist" aria-label="Filter menu">
+        <button class="filter active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter" data-filter="starters" role="tab">Starters</button>
+        <button class="filter" data-filter="mains" role="tab">Mains</button>
+        <button class="filter" data-filter="desserts" role="tab">Desserts</button>
+        <button class="filter" data-filter="drinks" role="tab">Drinks</button>
+      </div>
+      <div id="menuGrid" class="grid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container two">
+      <div>
+        <h2>About DineBite</h2>
+        <p class="lead">We blend traditional recipes with a modern twist. Our kitchen sources locally and cooks with heart.</p>
+        <ul>
+          <li>Locally sourced produce & meats</li>
+          <li>Seasonal specials every week</li>
+          <li>Private dining room for 10–20 guests</li>
+        </ul>
+      </div>
+      <div class="card"><img alt="Chef plating a dish" src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1400&auto=format&fit=crop"></div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <div class="container">
+      <h2>Gallery</h2>
+      <p class="lead">A peek into our plates and place.</p>
+      <div class="gallery" id="galleryGrid">
+        <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=800&auto=format&fit=crop" alt="Pasta"/>
+        <img src="https://images.unsplash.com/photo-1481931098730-318b6f776db0?q=80&w=800&auto=format&fit=crop" alt="Steak"/>
+        <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=800&auto=format&fit=crop" alt="Salad"/>
+        <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?q=80&w=800&auto=format&fit=crop" alt="Interior"/>
+        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=800&auto=format&fit=crop" alt="Dessert"/>
+        <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?q=80&w=800&auto=format&fit=crop" alt="Burger"/>
+        <img src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?q=80&w=800&auto=format&fit=crop" alt="Pizza"/>
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop" alt="Coffee"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation -->
+  <section id="reserve">
+    <div class="container">
+      <h2>Reserve a Table</h2>
+      <p class="lead">Tell us when you’re coming and we’ll save you the best seat.</p>
+      <form id="reserveForm" action="process.php" method="POST">
+        <input type="text" id="name" name="name" placeholder="Full name" required aria-label="Full name" />
+        <input type="email" id="email" name="email" placeholder="Email" required aria-label="Email" />
+        <input type="date" id="date" name="date" required aria-label="Date" />
+        <input type="time" id="time" name="time" required aria-label="Time" />
+        <select id="people" name="people" aria-label="Guests">
+          <option value="2">2 guests</option>
+          <option value="3">3 guests</option>
+          <option value="4" selected>4 guests</option>
+          <option value="5">5 guests</option>
+          <option value="6">6 guests</option>
+        </select>
+        <textarea id="notes" name="notes" placeholder="Any special requests?"></textarea>
+        <div class="actions">
+          <button class="btn" type="submit">Confirm Reservation</button>
+          <span id="formMsg" class="muted" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container two">
+      <div>
+        <h2>Find Us</h2>
+        <p class="lead">123 Food Street, Flavor Town. Open daily 12:00 – 23:00</p>
+        <p><strong>Phone:</strong> <a href="tel:+1234567890">+1 234 567 890</a><br>
+          <strong>Email:</strong> <a href="mailto:hello@DineBite.com">hello@DineBite.com</a></p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <a class="btn secondary" href="#reserve">Book a Table</a>
+          <a class="btn" href="#menu">Order Pickup</a>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <iframe title="Map" width="100%" height="320" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=73.0479%2C33.6844%2C73.0979%2C33.7044&layer=mapnik"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div>© <span id="year"></span> DineBite. All rights are reserved by Faiza Mehram.</div>
+      <div>Built with ♥ • <a href="#home">Back to top ↑</a></div>
+    </div>
+  </footer>
+
+  <!-- Menu Modal -->
+  <div id="menuModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-card">
+      <img id="modalImg" alt="Dish image" src="" />
+      <div class="content">
+        <h3 id="modalTitle" style="margin:.2rem 0"></h3>
+        <p id="modalDesc" class="muted"></p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+          <strong id="modalPrice" class="price"></strong>
+          <button id="closeModal" class="btn secondary">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Reservation confirmed!</div>
+
+  <script>
+    // ---------- State ----------
+    const MENU = [
+      {id:1, title:'Bruschetta', cat:'starters', price:6.5, img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop', desc:'Grilled bread, tomatoes, basil, olive oil.'},
+      {id:2, title:'Caesar Salad', cat:'starters', price:7.9, img:'https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=1200&auto=format&fit=crop', desc:'Crisp romaine, parmesan, house dressing.'},
+      {id:3, title:'Margherita Pizza', cat:'mains', price:12, img:'images/margheritta pizza.jpg', desc:'San Marzano tomato, mozzarella, basil.'},
+      {id:4, title:'Grilled Salmon', cat:'mains', price:16.5, img:'images/grilled salmon.jpg', desc:'Lemon butter, seasonal greens.'},
+      {id:5, title:'Chocolate Lava Cake', cat:'desserts', price:6.9, img:'images/lava cake.jpg', desc:'Warm chocolate cake, molten center.'},
+      {id:6, title:'Tiramisu', cat:'desserts', price:7.5, img:'https://images.unsplash.com/photo-1601979031925-424e53b6caaa?q=80&w=1200&auto=format&fit=crop', desc:'Classic Italian with espresso & mascarpone.'},
+      {id:7, title:'Iced Latte', cat:'drinks', price:3.9, img:'images/icedlatte.webp', desc:'Chilled espresso with milk.'},
+      {id:8, title:'Berry Lemonade', cat:'drinks', price:3.5, img:'https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=1200&auto=format&fit=crop', desc:'House-made lemonade with berries.'},
+      {id:9, title:'Herbed Chicken', cat:'mains', price:13.9, img:'images/herbed chicken.jpeg', desc:'Roasted chicken with rosemary & thyme.'},
+    ];
+
+    const qs = (s,el=document)=>el.querySelector(s);
+    const qsa=(s,el=document)=>[...el.querySelectorAll(s)];
+
+    // ---------- Theme ----------
+    const root=document.documentElement;
+    const applyTheme = (m)=>{root.classList.toggle('dark', m==='dark'); localStorage.setItem('theme', m)};
+    applyTheme(localStorage.getItem('theme')|| (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+    const toggleTheme=()=>applyTheme(root.classList.contains('dark')?'light':'dark');
+    qs('#themeToggle').addEventListener('click',toggleTheme);
+    qs('#themeToggleM').addEventListener('click',toggleTheme);
+
+    // ---------- Mobile Menu ----------
+    const burger=qs('#hamburger');
+    const mm=qs('#mobileMenu');
+    burger.addEventListener('click',()=>{
+      const open = mm.style.display!=='block';
+      mm.style.display = open?'block':'none';
+      burger.setAttribute('aria-expanded', String(open));
+      mm.setAttribute('aria-hidden', String(!open))
+    });
+
+    // ---------- Menu Render & Filter ----------
+    const grid = qs('#menuGrid');
+    function cardTpl(item){
+      return `<article class="card" data-cat="${item.cat}" tabindex="0" role="button" aria-label="View ${item.title}" data-id="${item.id}">
+          <img src="${item.img}" alt="${item.title}">
+          <div class="content">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <h3 style="margin:.2rem 0">${item.title}</h3>
+              <span class="price">$${item.price.toFixed(2)}</span>
+            </div>
+            <p class="muted" style="margin:.2rem 0 .4rem">${item.desc}</p>
+          </div>
+        </article>`
+    }
+    function renderMenu(items){ grid.innerHTML = items.map(cardTpl).join(''); }
+    renderMenu(MENU);
+
+    qsa('.filter').forEach(btn=>btn.addEventListener('click',()=>{
+      qsa('.filter').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+      const f=btn.dataset.filter;
+      const items = f==='all'? MENU : MENU.filter(i=>i.cat===f);
+      renderMenu(items);
+    }));
+
+    // ---------- Menu Modal ----------
+    const modal = qs('#menuModal');
+    const modalImg = qs('#modalImg');
+    const modalTitle = qs('#modalTitle');
+    const modalDesc = qs('#modalDesc');
+    const modalPrice = qs('#modalPrice');
+
+    function openModal(id){
+      const item = MENU.find(x=>x.id==id);
+      if(!item) return;
+      modalImg.src=item.img; modalTitle.textContent=item.title; modalDesc.textContent=item.desc; modalPrice.textContent=`$${item.price.toFixed(2)}`;
+      modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+    }
+    function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+
+    grid.addEventListener('click',e=>{
+      const card = e.target.closest('[data-id]'); if(card) openModal(card.dataset.id);
+    });
+    grid.addEventListener('keydown',e=>{ if(e.key==='Enter'){ const el=e.target.closest('[data-id]'); if(el) openModal(el.dataset.id); } });
+    qs('#closeModal').addEventListener('click',closeModal);
+    modal.addEventListener('click',e=>{ if(e.target===modal) closeModal(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+    // ---------- Reservation Form ----------
+    const form = qs('#reserveForm');
+    const toast = qs('#toast');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      // Basic validation
+      if(!data.name || !data.email){ return setMsg('Please fill required fields.'); }
+      setMsg('Booking…');
+      // Simulate success
+      setTimeout(()=>{
+        // store locally as demo
+        const bookings = JSON.parse(localStorage.getItem('bookings')||'[]');
+        bookings.push({...data, createdAt: new Date().toISOString()});
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+        form.reset(); setMsg('');
+        showToast('Reservation confirmed! Check your email for details.');
+      }, 600);
+    });
+
+    function setMsg(t){ qs('#formMsg').textContent=t; }
+    function showToast(t){ toast.textContent=t; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 2200); }
+
+    // ---------- Gallery lightbox (simple) ----------
+    qs('#galleryGrid').addEventListener('click', (e)=>{
+      if(e.target.tagName==='IMG'){
+        modalImg.src=e.target.src; modalTitle.textContent=e.target.alt; modalDesc.textContent=''; modalPrice.textContent='';
+        modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+      }
+    });
+
+    // ---------- Footer year ----------
+    qs('#year').textContent = new Date().getFullYear();
+  </script>
+</body>
+>>>>>>> eee5e7f577d57ad60b7e4ca18425f9898726db29
 </html>
