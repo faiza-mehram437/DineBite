@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php
 // process.php - Handles reservations and contact form
 
